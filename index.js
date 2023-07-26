@@ -5,15 +5,19 @@ import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
+
 import kpiRoutes from "./routes/kpi.js";
+import productRoutes from "./routes/product.js";
+
+import Product from "./models/Product.js";
 import KPI from "./models/KPI.js";
-import { kpis } from './data/data.js';
+import { kpis, products } from "./data/data.js";
 
 /** Configuration */
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin"}));
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,21 +25,24 @@ app.use(cors());
 
 /** Routes */
 app.use("/kpi", kpiRoutes);
+app.use("/product", productRoutes);
 
 /** Mongoose */
 const PORT = process.env.PORT || 9000;
-mongoose.connect(process.env.MONGO_URL, {
+mongoose
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-})
-.then(async ()=> {
-    app.listen(PORT, ()=>{
-        console.log("Server Port:", PORT);
+  })
+  .then(async () => {
+    app.listen(PORT, () => {
+      console.log("Server Port:", PORT);
     });
 
     /** ONE TIME SEEDING AS NEEDED */
     // await mongoose.connection.db.dropDatabase();
     // KPI.insertMany(kpis);
 
-})
-.catch(error => console.log(error, "Did not connect"));
+    //Product.insertMany(products);
+  })
+  .catch((error) => console.log(error, "Did not connect"));
