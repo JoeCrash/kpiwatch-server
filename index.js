@@ -45,7 +45,7 @@ mongoose
     /** ONE TIME SEEDING AS NEEDED */
     // await mongoose.connection.db.dropDatabase();
     // KPI.insertMany(kpis);
-    //Product.insertMany(products);
-    //Transaction.insertMany(transactions);
+    // Product.insertMany(products);
+    // Transaction.insertMany(transactions);
   })
   .catch((error) => console.log(error, "Did not connect"));
