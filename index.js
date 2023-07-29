@@ -32,6 +32,7 @@ app.use("/transaction", transactionRoutes);
 
 /** Mongoose */
 const PORT = process.env.PORT || 9000;
+/** connect to Mongo first and then start listening for serverless */
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
