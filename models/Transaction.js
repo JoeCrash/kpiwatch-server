@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { loadType } from "mongoose-currency";
+import { loadType } from "../utils/currency.js";
 
 const Schema = mongoose.Schema;
 loadType(mongoose);
